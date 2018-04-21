@@ -1,0 +1,77 @@
+// tetin file version 1.1
+// written by ANSYS ICEM CFD on Mon May 17 22:47:07 2010
+// written by ANSYS ICEM CFD on Tue May 18 12:36:20 2010
+// written by ANSYS ICEM CFD on Wed May 09 16:59:16 2012
+// written by ICEM CFD - version 13.0 on Thu May 09 15:41:44 2013
+
+set_triangulation_tolerance 0.001
+define_family PUNK color 3403389
+define_family TOP color 14693271
+define_family BOTTOM color 5125117
+define_family LEFT color 12827187
+define_family RIGHT color 5714940
+define_family FLUID color 12109107
+
+prescribed_point 0 0 0 family PUNK name POINTS.00
+prescribed_point 1 0 0 family PUNK name POINTS.01
+prescribed_point 1 1 0 family PUNK name POINTS.02
+prescribed_point 0 1 0 family PUNK name POINTS.03
+prescribed_point 1 1 0 family FLUID name FLUID.7
+prescribed_point 0 1 0 family FLUID name FLUID.8
+prescribed_point 0 0 0 family FLUID name FLUID.9
+prescribed_point 1 0 0 family FLUID name FLUID.10
+define_curve family TOP tetra_size 1e+010 name CURVES.00 vertex1 FLUID.8 vertex2 FLUID.7
+bspline
+2,2,0
+0,0,1,1
+0,1,0
+1,1,0
+define_curve family BOTTOM tetra_size 1e+010 name CURVES.01 vertex1 FLUID.9 vertex2 FLUID.10
+bspline
+2,2,0
+0,0,1,1
+0,0,0
+1,0,0
+define_curve family LEFT tetra_size 1e+010 name CURVES.02 vertex1 FLUID.9 vertex2 FLUID.8
+bspline
+2,2,0
+0,0,1,1
+0,0,0
+0,1,0
+define_curve family RIGHT tetra_size 1e+010 name CURVES.03 vertex1 FLUID.10 vertex2 FLUID.7
+bspline
+2,2,0
+0,0,1,1
+1,0,0
+1,1,0
+define_surface name SURFS.00 family FLUID tetra_size 1e+010
+trim_surface n_loops 1
+loop n_curves 4
+coedge 3dcurve - CURVES.00
+polyline n_points 2
+0,0
+1,0
+coedge 3dcurve - CURVES.02
+polyline n_points 2
+1,0
+1,1
+coedge 3dcurve   CURVES.01
+polyline n_points 2
+1,1
+0,1
+coedge 3dcurve   CURVES.03
+polyline n_points 2
+0,1
+0,0
+bspline
+2,2,2,2,0
+0,0,1,1
+0,0,1,1
+1,1,0
+0,1,0
+1,0,0
+0,0,0
+affix 0
+define_model 10 reference_size 1
+define_prism_meshing_parameters law 0 nlay 3 hratio 1.2
+return
